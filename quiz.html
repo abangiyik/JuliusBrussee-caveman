@@ -433,8 +433,8 @@
       <p>Penguatan Subklaster Kesehatan Reproduksi &amp; PPKBG PP | Aceh Utara</p>
     </div>
     <div class="timer-wrap" id="timerWrap">
-      <span class="timer-label">Waktu</span>
-      <span class="timer-display" id="timerDisplay">90:00</span>
+      <span class="timer-label">Soal Ini</span>
+      <span class="timer-display" id="timerDisplay">01:00</span>
     </div>
   </div>
   <div class="progress-bar-wrap">
@@ -456,7 +456,7 @@
       </li>
       <li>
         <span class="icon">⏱️</span>
-        <div><strong>Durasi</strong><br><span>90 menit</span></div>
+        <div><strong>Durasi</strong><br><span>1 menit per soal (20 menit total)</span></div>
       </li>
       <li>
         <span class="icon">🔤</span>
@@ -534,7 +534,7 @@
       </div>
       <div class="stat-box stat-time">
         <div class="num" id="statTime">–</div>
-        <div class="lbl">Waktu Tersisa</div>
+        <div class="lbl">Total Soal</div>
       </div>
     </div>
 
@@ -788,18 +788,17 @@ const QUESTIONS = [
 ];
 
 const LETTERS = ['A','B','C','D','E'];
-const TOTAL_SECONDS = 90 * 60;
+const SECS_PER_Q = 60;
 
 // ══════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════
 let currentQ = 0;
 let answers = new Array(QUESTIONS.length).fill(null);
-let timerSeconds = TOTAL_SECONDS;
+let timerSeconds = SECS_PER_Q;
 let timerInterval = null;
 let quizStarted = false;
 let quizFinished = false;
-let startTime = null;
 
 // ══════════════════════════════════════════════
 //  INIT
@@ -809,38 +808,42 @@ document.getElementById('btnPrev').addEventListener('click', () => navigate(-1))
 document.getElementById('btnNext').addEventListener('click', () => navigate(1));
 document.getElementById('btnSubmit').addEventListener('click', confirmSubmit);
 document.getElementById('btnReview').addEventListener('click', toggleReview);
-document.getElementById('btnTimeoutOk').addEventListener('click', () => {
-  document.getElementById('overlay-timeout').classList.remove('active');
-  showResults();
-});
 
 // ══════════════════════════════════════════════
 //  QUIZ START
 // ══════════════════════════════════════════════
 function startQuiz() {
   quizStarted = true;
-  startTime = Date.now();
   document.getElementById('page-cover').style.display = 'none';
   document.getElementById('page-quiz').style.display = 'block';
   buildDots();
   renderQuestion(0);
-  startTimer();
 }
 
 // ══════════════════════════════════════════════
-//  TIMER
+//  TIMER (per-question)
 // ══════════════════════════════════════════════
-function startTimer() {
+function startQuestionTimer() {
+  clearInterval(timerInterval);
+  timerSeconds = SECS_PER_Q;
+  updateTimerDisplay();
   timerInterval = setInterval(() => {
     timerSeconds--;
     updateTimerDisplay();
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
-      if (!quizFinished) {
-        document.getElementById('overlay-timeout').classList.add('active');
-      }
+      if (!quizFinished) autoAdvance();
     }
   }, 1000);
+}
+
+function autoAdvance() {
+  if (currentQ < QUESTIONS.length - 1) {
+    renderQuestion(currentQ + 1);
+  } else {
+    quizFinished = true;
+    showResults();
+  }
 }
 
 function updateTimerDisplay() {
@@ -849,9 +852,9 @@ function updateTimerDisplay() {
   const display = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
   document.getElementById('timerDisplay').textContent = display;
   const wrap = document.getElementById('timerWrap');
-  if (timerSeconds <= 300) {
+  if (timerSeconds <= 10) {
     wrap.className = 'timer-wrap danger';
-  } else if (timerSeconds <= 600) {
+  } else if (timerSeconds <= 20) {
     wrap.className = 'timer-wrap warning';
   } else {
     wrap.className = 'timer-wrap';
@@ -912,6 +915,7 @@ function renderQuestion(idx) {
   updateAnsweredCount();
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  startQuestionTimer();
 }
 
 // ══════════════════════════════════════════════
@@ -987,12 +991,11 @@ function showResults() {
 
   const answered = answers.filter(a => a !== null).length;
   const skipped  = answers.filter(a => a === null).length;
-  const timeLeft = `${Math.floor(timerSeconds/60).toString().padStart(2,'0')}:${(timerSeconds%60).toString().padStart(2,'0')}`;
 
-  document.getElementById('scoreNum').textContent    = answered;
-  document.getElementById('statAnswered').textContent = answered;
-  document.getElementById('statSkipped').textContent  = skipped;
-  document.getElementById('statTime').textContent     = timerSeconds > 0 ? timeLeft : '00:00';
+  document.getElementById('scoreNum').textContent     = answered;
+  document.getElementById('statAnswered').textContent  = answered;
+  document.getElementById('statSkipped').textContent   = skipped;
+  document.getElementById('statTime').textContent      = QUESTIONS.length;
 
   // Ring animation
   setTimeout(() => {
