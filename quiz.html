@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre &amp; Post Test — Pelatihan PPAM Aceh Utara 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0f766e;
+    --primary-dark: #0d5f58;
+    --primary-light: #ccfbf1;
+    --accent: #0ea5e9;
+    --accent-light: #e0f2fe;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --bg: #f0fdfa;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(15,118,110,0.10);
+    --shadow-lg: 0 8px 40px rgba(15,118,110,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    background: linear-gradient(135deg, #0f766e 0%, #0369a1 100%);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-titles { flex: 1; }
+  .header-titles h1 { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+  .header-titles p { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
+
+  /* ─── TIMER ─── */
+  .timer-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    padding: 8px 16px;
+    min-width: 90px;
+    backdrop-filter: blur(4px);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .timer-wrap.warning { background: rgba(245,158,11,0.25); border-color: rgba(245,158,11,0.6); }
+  .timer-wrap.danger  { background: rgba(239,68,68,0.25);  border-color: rgba(239,68,68,0.6); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+  .timer-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: .06em; opacity: .8; }
+  .timer-display { font-size: 1.4rem; font-weight: 700; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.2);
+    height: 4px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #a7f3d0;
+    transition: width 0.4s ease;
+  }
+
+  /* ─── MAIN ─── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 16px 60px;
+  }
+
+  /* ─── COVER PAGE ─── */
+  #page-cover {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .cover-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 48px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .cover-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg,#0f766e,#0369a1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 2rem;
+  }
+  .cover-card h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+  .cover-card .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+  .meta-list { list-style: none; text-align: left; margin: 0 auto 32px; max-width: 360px; }
+  .meta-list li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .meta-list li:last-child { border-bottom: none; }
+  .meta-list .icon { font-size: 1.1rem; width: 28px; text-align: center; }
+  .meta-list strong { color: var(--text); }
+  .meta-list span { color: var(--muted); }
+  .btn-start {
+    background: linear-gradient(135deg,#0f766e,#0369a1);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 44px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .2s, transform .15s;
+    box-shadow: 0 4px 16px rgba(15,118,110,0.3);
+  }
+  .btn-start:hover { opacity: .92; transform: translateY(-1px); }
+  .btn-start:active { transform: translateY(0); }
+
+  /* ─── QUESTION PAGE ─── */
+  #page-quiz { display: none; }
+
+  .question-nav-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 0.83rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .q-badge {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .question-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1.5px solid var(--border);
+  }
+  .question-header {
+    background: linear-gradient(135deg,var(--primary-light),var(--accent-light));
+    padding: 20px 28px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .scenario-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .scenario-text {
+    font-size: 0.93rem;
+    line-height: 1.7;
+    color: #334155;
+    font-weight: 400;
+  }
+  .question-body { padding: 24px 28px; }
+  .question-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--primary-light);
+  }
+
+  /* ─── OPTION CARDS ─── */
+  .options-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .option-item input[type="radio"] { display: none; }
+  .option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, box-shadow .15s, transform .1s;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #334155;
+    user-select: none;
+  }
+  .option-label:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 2px 10px rgba(15,118,110,0.12);
+  }
+  .option-label:active { transform: scale(0.995); }
+  input[type="radio"]:checked + .option-label {
+    border-color: var(--primary);
+    background: linear-gradient(135deg,#ccfbf1,#e0f2fe);
+    box-shadow: 0 2px 12px rgba(15,118,110,0.18);
+    color: var(--primary-dark);
+    font-weight: 500;
+  }
+  .option-letter {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition: background .2s, color .2s;
+    margin-top: 1px;
+  }
+  input[type="radio"]:checked + .option-label .option-letter {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  /* ─── NAV BUTTONS ─── */
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .btn {
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity .2s, transform .15s, box-shadow .2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { opacity: .88; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: .35; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-secondary {
+    background: var(--card);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg,#0f766e,#0369a1);
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(15,118,110,0.25);
+  }
+  .btn-danger {
+    background: linear-gradient(135deg,#dc2626,#b91c1c);
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(220,38,38,0.25);
+  }
+
+  /* ─── QUESTION DOTS NAV ─── */
+  .dots-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+  }
+  .dot-btn {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: var(--card);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all .15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dot-btn.current { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+  .dot-btn.answered { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .dot-btn.answered.current { background: var(--primary-dark); }
+
+  /* ─── RESULTS PAGE ─── */
+  #page-results { display: none; }
+  .result-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 40px 36px;
+    text-align: center;
+    border: 1.5px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .result-icon { font-size: 3.5rem; margin-bottom: 16px; }
+  .result-card h2 { font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+  .result-card .result-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+
+  .score-ring {
+    width: 140px; height: 140px;
+    margin: 0 auto 24px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .score-ring svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
+  .score-ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
+  .ring-bg { stroke: var(--border); }
+  .ring-fg { stroke: var(--primary); stroke-dasharray: 380; stroke-dashoffset: 380; transition: stroke-dashoffset 1.2s ease; }
+  .score-num { font-size: 2.2rem; font-weight: 800; color: var(--primary); z-index: 1; }
+  .score-denom { font-size: 0.85rem; color: var(--muted); font-weight: 500; z-index: 1; position: absolute; bottom: 22px; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-box {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px 12px;
+    border: 1.5px solid var(--border);
+  }
+  .stat-box .num { font-size: 1.6rem; font-weight: 800; margin-bottom: 4px; }
+  .stat-box .lbl { font-size: 0.73rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .stat-answered .num { color: var(--primary); }
+  .stat-skipped .num  { color: var(--warning); }
+  .stat-time .num     { color: var(--accent); }
+
+  .review-list { list-style: none; text-align: left; }
+  .review-item {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .review-item .r-num { font-size: 0.72rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px; }
+  .review-item .r-q { font-size: 0.88rem; color: var(--text); font-weight: 600; margin-bottom: 10px; line-height: 1.5; }
+  .review-item .r-ans {
+    font-size: 0.83rem;
+    color: var(--muted);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .r-ans-badge {
+    flex-shrink: 0;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+  }
+  .r-ans-badge.none { background: #fef3c7; color: #92400e; }
+
+  /* ─── TIMEOUT OVERLAY ─── */
+  #overlay-timeout {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,0.7);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  #overlay-timeout.active { display: flex; }
+  .overlay-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .overlay-card h2 { font-size: 1.4rem; font-weight: 800; color: var(--danger); margin: 16px 0 8px; }
+  .overlay-card p  { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:600px){
+    .cover-card { padding: 32px 20px; }
+    .question-header { padding: 16px 18px; }
+    .question-body { padding: 18px 18px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .header-titles h1 { font-size: 0.9rem; }
+    .timer-display { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-titles">
+      <h1>Pre &amp; Post Test — Pelatihan PPAM</h1>
+      <p>Penguatan Subklaster Kesehatan Reproduksi &amp; PPKBG PP | Aceh Utara</p>
+    </div>
+    <div class="timer-wrap" id="timerWrap">
+      <span class="timer-label">Waktu</span>
+      <span class="timer-display" id="timerDisplay">90:00</span>
+    </div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ COVER ═══════════════════════ -->
+<main>
+<section id="page-cover">
+  <div class="cover-card">
+    <div class="cover-icon">🏥</div>
+    <h2>Soal Pre &amp; Post Test<br>Pelatihan PPAM</h2>
+    <p class="subtitle">21–23 Mei 2026 &nbsp;|&nbsp; Kabupaten Aceh Utara</p>
+    <ul class="meta-list">
+      <li>
+        <span class="icon">📝</span>
+        <div><strong>Jumlah Soal</strong><br><span>20 soal pilihan ganda</span></div>
+      </li>
+      <li>
+        <span class="icon">⏱️</span>
+        <div><strong>Durasi</strong><br><span>90 menit</span></div>
+      </li>
+      <li>
+        <span class="icon">🔤</span>
+        <div><strong>Pilihan Jawaban</strong><br><span>5 pilihan (A–E) per soal</span></div>
+      </li>
+      <li>
+        <span class="icon">📌</span>
+        <div><strong>Topik</strong><br><span>PPAM, Kespro, KBG, Klaster Kesehatan, Gizi &amp; Anak</span></div>
+      </li>
+    </ul>
+    <button class="btn-start" id="btnStart">Mulai Ujian &rarr;</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════ QUIZ ═══════════════════════ -->
+<section id="page-quiz">
+
+  <!-- Dots navigation -->
+  <div class="dots-nav" id="dotsNav"></div>
+
+  <!-- Question meta -->
+  <div class="question-nav-info">
+    <span class="q-badge" id="qBadge">Soal 1 / 20</span>
+    <span id="qAnsweredCount">0 soal dijawab</span>
+  </div>
+
+  <!-- Question card -->
+  <div class="question-card" id="questionCard">
+    <div class="question-header" id="scenarioArea">
+      <div class="scenario-label">📖 Vignette / Skenario</div>
+      <p class="scenario-text" id="scenarioText"></p>
+    </div>
+    <div class="question-body">
+      <p class="question-text" id="questionText"></p>
+      <ul class="options-list" id="optionsList"></ul>
+    </div>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" id="btnPrev">&#8592; Sebelumnya</button>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-primary" id="btnNext">Selanjutnya &#8594;</button>
+      <button class="btn btn-danger" id="btnSubmit" style="display:none;">&#10003; Selesai &amp; Kirim</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ RESULTS ═══════════════════════ -->
+<section id="page-results">
+  <div class="result-card">
+    <div class="result-icon">🎉</div>
+    <h2>Ujian Selesai!</h2>
+    <p class="result-sub">Terima kasih telah mengerjakan soal Pre/Post Test Pelatihan PPAM</p>
+
+    <div class="score-ring" id="scoreRing">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle class="ring-bg" cx="70" cy="70" r="60"/>
+        <circle class="ring-fg" id="ringFg" cx="70" cy="70" r="60"/>
+      </svg>
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <span class="score-num" id="scoreNum">0</span>
+        <span style="font-size:.75rem;color:var(--muted);margin-top:2px;">dari 20</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box stat-answered">
+        <div class="num" id="statAnswered">0</div>
+        <div class="lbl">Dijawab</div>
+      </div>
+      <div class="stat-box stat-skipped">
+        <div class="num" id="statSkipped">0</div>
+        <div class="lbl">Dilewati</div>
+      </div>
+      <div class="stat-box stat-time">
+        <div class="num" id="statTime">–</div>
+        <div class="lbl">Waktu Tersisa</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btnReview" style="margin:0 auto;display:flex;">
+      📋 Lihat Rekap Jawaban
+    </button>
+  </div>
+
+  <div id="reviewArea" style="display:none;">
+    <h3 style="font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:16px;">Rekap Jawaban</h3>
+    <ul class="review-list" id="reviewList"></ul>
+  </div>
+</section>
+</main>
+
+<!-- ═══════════════════════ TIMEOUT OVERLAY ═══════════════════════ -->
+<div id="overlay-timeout">
+  <div class="overlay-card">
+    <div style="font-size:3rem;">⏰</div>
+    <h2>Waktu Habis!</h2>
+    <p>Waktu pengerjaan telah berakhir. Jawaban Anda telah otomatis disimpan.</p>
+    <button class="btn btn-primary" id="btnTimeoutOk" style="margin:0 auto;display:flex;">Lihat Hasil</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  QUIZ DATA
+// ══════════════════════════════════════════════
+const QUESTIONS = [
+  {
+    scenario: "Bencana merupakan gangguan kehidupan yang disebabkan oleh faktor alam, nonalam, maupun manusia yang mengakibatkan korban jiwa dan kerugian harta benda. Pada Maret 2020, wabah virus corona mulai merebak di Indonesia dan mengakibatkan timbulnya korban jiwa, kerugian harta benda, serta dampak psikologis yang signifikan bagi masyarakat.",
+    question: "Manakah klasifikasi jenis bencana yang paling tepat untuk menggambarkan fenomena tersebut?",
+    options: [
+      "Bencana Alam",
+      "Bencana Sosial",
+      "Bencana Non Alam",
+      "Bencana Kejadian Luar Biasa",
+      "Bencana Wabah"
+    ]
+  },
+  {
+    scenario: "Dalam situasi tanggap darurat krisis kesehatan, hasil pemantauan menunjukkan adanya hambatan dalam mobilisasi logistik dan tumpang tindih distribusi tenaga medis karena arus informasi yang tersegmentasi antar lembaga. Guna memastikan seluruh elemen respon berjalan secara sinkron dan efektif dalam satu pintu, sehingga perlu mengaktivasi Health Emergency Operation Center (HEOC).",
+    question: "Apakah tugas utama dari HEOC?",
+    options: [
+      "Menjalankan fungsi strategi di bidang kesehatan sejak fase Pra krisis kesehatan.",
+      "Menjalankan fungsi evaluasi di bidang kesehatan sejak fase Pra krisis kesehatan.",
+      "Menjalankan fungsi komando di bidang kesehatan saat terjadi krisis kesehatan.",
+      "Menjalankan fungsi perencanaan di bidang kesehatan sejak fase Pra krisis kesehatan.",
+      "Menjalankan fungsi pembinaan di bidang kesehatan sejak fase Pra krisis kesehatan."
+    ]
+  },
+  {
+    scenario: "Dalam fase tanggap darurat pasca gempa, tim kesehatan diminta mengintegrasikan pelayanan kesehatan reproduksi ke dalam pos kesehatan pengungsian. Untuk itu perlu segera dibentuk penanggung jawab yang akan mengoordinasikan penyelenggaraan kegiatan PPAM Kespro di lapangan.",
+    question: "Siapa pihak yang bertanggung jawab?",
+    options: [
+      "Kepala Puskesmas",
+      "Subklaster Kesehatan Reproduksi",
+      "Klaster Gizi",
+      "BPBD Kabupaten",
+      "Dinas Kesehatan"
+    ]
+  },
+  {
+    scenario: "Terjadi gempa bumi berkekuatan 7,2 SR yang mengakibatkan kerusakan masif pada fasilitas kesehatan dan ribuan warga mengungsi. Berbagai lembaga swadaya masyarakat (LSM) internasional dan organisasi kemanusiaan tiba di lokasi untuk memberikan bantuan medis. Namun, laporan mengenai kebutuhan spesifik ibu hamil, perlindungan terhadap kekerasan seksual, dan ketersediaan kontrasepsi di tenda pengungsian masih simpang siur dan tumpang tindih antar lembaga.",
+    question: "Apakah langkah strategis pertama yang harus dilakukan oleh dinas kesehatan setempat berdasarkan kebijakan Paket Pelayanan Awal Minimum (PPAM)?",
+    options: [
+      "Menunjuk koordinator kesehatan reproduksi",
+      "Melakukan sensus jumlah ibu hamil di pengungsian",
+      "Membagikan paket kit persalinan ke semua tenda",
+      "Membangun pusat pelayanan kesehatan reproduksi",
+      "Mengadakan pelatihan singkat penanganan bencana"
+    ]
+  },
+  {
+    scenario: "Setelah terjadi letusan gunung berapi, tim respons kesehatan yang terdiri dari perwakilan Kementerian Kesehatan, LSM, dan organisasi internasional tiba di lokasi. Banyak lembaga ingin memberikan bantuan kesehatan reproduksi, tetapi terdapat risiko duplikasi logistik dan tumpang tindih area layanan. Untuk itu, penting untuk koordinator klaster kesehatan memahami tanggung jawabnya pada situasi krisis kesehatan.",
+    question: "Apa tugas di tingkat operasional yang sesuai dengan kondisi tersebut?",
+    options: [
+      "Menghentikan semua intervensi dan layanan kesehatan lain yang tidak termasuk dalam PPAM.",
+      "Membangun dan/atau memastikan berfungsinya sistem koordinasi antara aktor sub kesehatan reproduksi (Pemerintah, LSM, mitra pembangunan) untuk keberlangungan layanan PPAM dan menghindari duplikasi layanan.",
+      "Memastikan ketersediaan logistik dan menyediakan layanan aborsi aman di posko pengungsian.",
+      "Mengambil alih seluruh fasilitas kesehatan untuk fokus pada layanan kesehatan reproduksi saja.",
+      "Memastikan berlangsungnya kerjasama baik dengan semua pemerintah, LSM, dan mitra pembangunan lainnya."
+    ]
+  },
+  {
+    scenario: "Pada saat terjadi krisis kesehatan, Sub Klaster Kesehatan Reproduksi menemukan adanya peningkatan kasus kekerasan terhadap perempuan di lokasi pengungsian. Selain membutuhkan penanganan medis, para penyintas juga menunjukkan tanda-tanda trauma psikologis yang memerlukan dukungan lanjutan. Untuk memastikan layanan yang komprehensif, tim mengintegrasikan layanan kesehatan reproduksi dengan dukungan kesehatan jiwa dan psikososial.",
+    question: "Manakah komponen layanan kesehatan yang paling tepat diintegrasikan dengan dukungan kesehatan jiwa dan psikososial pada kondisi tersebut?",
+    options: [
+      "Layanan keluarga berencana darurat",
+      "Pertolongan persalinan bersih",
+      "Pencegahan penularan infeksi menular seksual",
+      "Pencegahan dan pengelolaan kekerasan berbasis gender",
+      "Pelayanan maternal dan neonatal"
+    ]
+  },
+  {
+    scenario: "Pada tanggal 11 bulan Januari tahun 20XX, pada pukul 10.00 WIB, terjadi goncangan gempa bumi berkekuatan 7,9 SR. Gelombang tsunami pertama mencapai pesisir Kota Bintang, dengan ketinggian 5,5–11 meter dari permukaan laut dan menyapu daratan sejauh 2–4 KM. Semua provider jaringan komunikasi mengalami kerusakan dan tidak dapat digunakan selama 6 jam pertama. Listrik di Kota Bintang padam selama 4 hari. Jalan dan jembatan penghubung provinsi ke Kota Bintang sebagian terputus. Kegiatan Rapid Health Assessment perlu dikoordinasikan oleh klaster Kesehatan.",
+    question: "Kapan sebaiknya koordinasi dilakukan?",
+    options: [
+      "Ketika situasi sudah stabil",
+      "Sesegera mungkin dalam 1x24 jam",
+      "Sesegera mungkin dalam 2x24 jam",
+      "Setelah dinyatakan status bencana",
+      "Setelah dinyatakan status krisis Kesehatan"
+    ]
+  },
+  {
+    scenario: "Penilaian kebutuhan khusus pelayanan kesehatan reproduksi dilakukan dengan dua cara yaitu dengan mengumpulkan data sekunder/data dasar pra krisis dan menghitung estimasi jumlah sasaran. Dalam PPAM kespro, salah satu populasi target utama PPAM adalah Wanita Usia Subur sebagai dasar penentuan kebutuhan pembalut di pengungsian.",
+    question: "Berapa estimasi statistik yang digunakan untuk mengetahui jumlah WUS di lokasi pengungsian?",
+    options: [
+      "20%",
+      "23%",
+      "25%",
+      "27%",
+      "29%"
+    ]
+  },
+  {
+    scenario: "Pemerintah daerah ingin memastikan bahwa layanan kesehatan reproduksi remaja (PKPR) tidak terhenti setelah masa tanggap darurat berakhir. Namun, hasil evaluasi menunjukkan remaja enggan datang ke pos kesehatan darurat karena masalah privasi yang kurang terjaga.",
+    question: "Langkah perencanaan manakah yang paling tepat untuk mengintegrasikan layanan tersebut ke pelayanan kesehatan dasar?",
+    options: [
+      "Menutup layanan remaja dan fokus pada kesehatan ibu",
+      "Membangun gedung khusus remaja di area pengungsian",
+      "Menyediakan ruang pelayanan ramah remaja di Puskesmas",
+      "Mewajibkan remaja datang ke posko kesehatan setiap hari",
+      "Memberikan insentif uang tunai agar remaja mau berobat"
+    ]
+  },
+  {
+    scenario: "Dalam rapat koordinasi penanganan krisis, ada usulan untuk melibatkan kelompok perempuan dalam pengambilan keputusan penting terkait manajemen kamp. Seorang peserta laki-laki berpendapat, 'Sebaiknya kita tidak perlu melibatkan mereka dalam keputusan penting, karena perempuan itu lebih emosional dan tidak bisa mengambil keputusan dengan rasional.'",
+    question: "Bentuk ketidakadilan gender yang tercermin dari pernyataan peserta tersebut adalah ...",
+    options: [
+      "Marjinalisasi",
+      "Subordinasi",
+      "Stereotip",
+      "Beban Majemuk",
+      "Kekerasan"
+    ]
+  },
+  {
+    scenario: "Di lokasi pengungsian pasca gempa bumi, seorang bidan menemukan ibu hamil berusia 24 tahun yang baru diketahui reaktif HIV. Fasilitas layanan masih terbatas.",
+    question: "Apa langkah awal yang paling tepat dilakukan oleh petugas kesehatan sesuai komponen PPAM untuk situasi ini?",
+    options: [
+      "Menunda pemeriksaan hingga fasilitas lengkap tersedia",
+      "Memberikan obat antiretroviral (ARV) segera sesuai protokol PMTCT",
+      "Merujuk ke rumah sakit kabupaten tanpa konseling",
+      "Melakukan pemeriksaan ulang dengan alat yang berbeda",
+      "Memberikan antibiotik profilaksis umum"
+    ]
+  },
+  {
+    scenario: "Di sebuah kamp pengungsian banyak ibu hamil yang kehilangan dokumen kesehatan pribadinya. Kondisi area persalinan darurat saat ini sangat tidak higienis dengan risiko kontaminasi tanah dan peralatan yang tidak steril. Bidan memutuskan untuk segera memberikan suntikan profilaksis toksoid kepada seluruh ibu hamil yang tidak dapat membuktikan status proteksi kesehatan mereka.",
+    question: "Apakah tujuan utama dari intervensi medis tersebut?",
+    options: [
+      "Meminimalisir risiko terjadinya sepsis puerperalis pada ibu nifas.",
+      "Menurunkan kerentanan terhadap infeksi saluran kemih di kamp.",
+      "Memperkuat sistem imunitas terhadap penyakit menular di posko.",
+      "Mencegah Tetanus Neonatorum yang mematikan pada bayi baru lahir.",
+      "Menjamin kelengkapan administrasi data pemantauan kesehatan ibu."
+    ]
+  },
+  {
+    scenario: "Pada situasi krisis kesehatan, remaja tidak hanya dipandang sebagai kelompok rentan, tetapi juga sebagai mitra dan pemimpin pelaksanaan program penanggulangan. Kemampuan remaja untuk bangkit setelah tekanan (ketahanan) dipengaruhi oleh faktor internal dan eksternal.",
+    question: "Manakah yang termasuk faktor eksternal ketahanan remaja?",
+    options: [
+      "Kerawanan pangan dan gizi",
+      "Keyakinan, optimisme, dan harapan masa depan",
+      "Pengetahuan dan keterampilan tentang pengurangan risiko bencana",
+      "Ketidakamanan ekonomi dan hilangnya mata pencaharian",
+      "Terbatasnya akses ke air bersih dan fasilitas sanitasi"
+    ]
+  },
+  {
+    scenario: "Forum remaja di pengungsian dilibatkan dalam pemberian informasi dasar kesehatan reproduksi remaja kepada teman sebayanya.",
+    question: "Manakah materi KIE yang paling krusial diprioritaskan oleh Forum Remaja pada fase tanggap darurat krisis?",
+    options: [
+      "Prosedur dan lokasi untuk aborsi yang aman",
+      "Mekanisme peminjaman dana mikro untuk usaha kecil",
+      "Risiko kehamilan tidak diinginkan dan infeksi menular seksual",
+      "Peraturan dan hukum terbaru tentang hak-hak sipil remaja",
+      "Tata cara pengisian formulir rujukan kasus kekerasan seksual"
+    ]
+  },
+  {
+    scenario: "Pasca banjir besar, seorang ibu dengan bayi berusia 5 bulan di posko pengungsian merasa cemas dan khawatir ASI-nya berkurang karena stres. Ia mulai mempertimbangkan untuk memberikan susu formula sumbangan karena merasa bayinya rewel.",
+    question: "Apa respons terbaik dan paling kritis dari petugas kesehatan terkait pemberian makan bayi tersebut?",
+    options: [
+      "Segera berikan susu formula sumbangan kepada bayi karena bayi rewel",
+      "Berikan air tajin yang diberi gula merah atau madu",
+      "Meminta ibu untuk memerah ASI dan memberikannya dengan botol agar dapat diukur jumlahnya.",
+      "Memberikan makanan pendamping ASI (MPASI) yang tersedia di posko agar bayi kenyang.",
+      "Mendorong ibu untuk menyusui lebih sering (ASI Eksklusif) dan memberikan dukungan psikososial untuk mengurangi stresnya."
+    ]
+  },
+  {
+    scenario: "Dalam situasi bencana alam yang menyebabkan pengungsian massal dan sanitasi yang buruk, manakah dari layanan kesehatan berikut yang menjadi prioritas utama untuk mencegah peningkatan morbiditas dan mortalitas pada kelompok balita?",
+    question: "Manakah layanan kesehatan yang menjadi prioritas utama?",
+    options: [
+      "Pemberian stimulan tumbuh kembang dan terapi bermain.",
+      "Skrining kesehatan mata dan gigi secara rutin.",
+      "Pemeriksaan laboratorium lengkap untuk mendeteksi penyakit kronis non-infeksi.",
+      "Distribusi masal mainan edukatif dan buku cerita untuk mengurangi stres.",
+      "Penyediaan akses segera ke air bersih, sanitasi yang layak, serta promosi imunisasi dan pemberian oralit."
+    ]
+  },
+  {
+    scenario: "Pada situasi pascabencana, di salah satu pos pengungsian, terdapat sekelompok lansia yang secara rutin membantu mengorganisasi pembagian makanan, memberikan dukungan emosional kepada pengungsi lain, serta membantu menyampaikan informasi kesehatan sederhana kepada masyarakat sekitar.",
+    question: "Strategi apa yang dapat dilakukan untuk mengoptimalkan peran kelompok tersebut dalam mendukung pelayanan kesehatan di pengungsian?",
+    options: [
+      "Melibatkan lansia sebagai kader/pendamping kelompok rentan lainnya",
+      "Membatasi aktivitas lansia untuk mencegah kelelahan selama masa pengungsian",
+      "Memindahkan lansia ke fasilitas khusus agar mendapatkan pemantauan intensif",
+      "Mengutamakan lansia sebagai kelompok penerima bantuan tanpa peran aktif",
+      "Mengarahkan lansia untuk beristirahat penuh tanpa keterlibatan dalam kegiatan pos"
+    ]
+  },
+  {
+    scenario: "Pada evaluasi tengah bulan pascabencana banjir, tim pemantau menemukan bahwa tingkat pemanfaatan tenda layanan kesehatan ibu dan anak di area pengungsian sektor timur tetap rendah, meskipun data kaji cepat menunjukkan terdapat banyak ibu hamil dan menyusui di wilayah tersebut. Wawancara singkat menunjukkan bahwa sebagian besar warga menganggap tenda tersebut hanya berfungsi untuk pengobatan umum atau luka fisik akibat bencana.",
+    question: "Apakah tindakan yang paling tepat untuk memperbaiki aksesibilitas pelayanan tersebut dalam draf rencana pelayanan terintegrasi?",
+    options: [
+      "Menambahkan jumlah tenaga bidan di titik layanan yang masih sepi kunjungan.",
+      "Memindahkan lokasi pelayanan ke area yang lebih dekat dengan pintu masuk utama.",
+      "Menyusun peta informasi layanan kesehatan dan strategi penyuluhan lintas sektor.",
+      "Membagikan insentif berupa paket kebutuhan dasar bagi warga yang datang berkunjung.",
+      "Menginstruksikan aparat keamanan untuk mengarahkan warga ke fasilitas kesehatan."
+    ]
+  },
+  {
+    scenario: "Di sebuah lokasi pengungsian, telah tersedia fasilitas khusus yang terlindungi bagi perempuan untuk mendapatkan dukungan psikososial. Staf yang bertugas telah dibekali keterampilan penanganan kasus sensitif, serta terdapat prosedur operasional standar yang memungkinkan koordinasi antar-lembaga bantuan dapat diakses secara kontinyu selama 24 jam.",
+    question: "Indikator transisi menuju pelayanan kesehatan reproduksi komprehensif manakah yang telah terpenuhi pada situasi tersebut?",
+    options: [
+      "Berfungsinya mekanisme koordinasi dan pelayanan bagi penyintas perkosaan",
+      "Tersedianya layanan kontrasepsi yang terintegrasi di fasilitas kesehatan dasar",
+      "Terpenuhinya kebutuhan paket kebersihan bagi seluruh wanita usia subur",
+      "Adanya pemisahan fasilitas sanitasi dan mandi yang memenuhi standar teknis",
+      "Terlaksananya pendataan sasaran kelompok rentan secara berkala dan akurat"
+    ]
+  },
+  {
+    scenario: "Seorang koordinator subklaster kesehatan reproduksi sedang menyusun dokumen rencana tindak lanjut untuk masa transisi dari Pelayanan Awal Minimum (PPAM) menuju layanan komprehensif. Dalam draf tersebut, ditemukan bahwa rincian mengenai status kerusakan ruang bersalin di tingkat puskesmas dan ketersediaan tenaga bidan yang masih aktif di wilayah terdampak masih menggunakan data estimasi awal dari fase tanggap darurat.",
+    question: "Manakah tindakan yang paling tepat dilakukan oleh koordinator tersebut sebelum memfinalisasi rencana transisi?",
+    options: [
+      "Melaksanakan sosialisasi draf rencana transisi kepada lintas sektor terkait.",
+      "Mengajukan usulan anggaran pemulihan berdasarkan estimasi kebutuhan awal.",
+      "Melakukan penilaian ulang terhadap kapasitas dan fungsionalitas fasilitas kesehatan.",
+      "Mendelegasikan validasi data kepada relawan medis di setiap titik pengungsian.",
+      "Mempercepat proses transisi untuk menjamin keberlangsungan layanan dasar."
+    ]
+  }
+];
+
+const LETTERS = ['A','B','C','D','E'];
+const TOTAL_SECONDS = 90 * 60;
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let currentQ = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+let timerSeconds = TOTAL_SECONDS;
+let timerInterval = null;
+let quizStarted = false;
+let quizFinished = false;
+let startTime = null;
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+document.getElementById('btnStart').addEventListener('click', startQuiz);
+document.getElementById('btnPrev').addEventListener('click', () => navigate(-1));
+document.getElementById('btnNext').addEventListener('click', () => navigate(1));
+document.getElementById('btnSubmit').addEventListener('click', confirmSubmit);
+document.getElementById('btnReview').addEventListener('click', toggleReview);
+document.getElementById('btnTimeoutOk').addEventListener('click', () => {
+  document.getElementById('overlay-timeout').classList.remove('active');
+  showResults();
+});
+
+// ══════════════════════════════════════════════
+//  QUIZ START
+// ══════════════════════════════════════════════
+function startQuiz() {
+  quizStarted = true;
+  startTime = Date.now();
+  document.getElementById('page-cover').style.display = 'none';
+  document.getElementById('page-quiz').style.display = 'block';
+  buildDots();
+  renderQuestion(0);
+  startTimer();
+}
+
+// ══════════════════════════════════════════════
+//  TIMER
+// ══════════════════════════════════════════════
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      if (!quizFinished) {
+        document.getElementById('overlay-timeout').classList.add('active');
+      }
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  const display = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  document.getElementById('timerDisplay').textContent = display;
+  const wrap = document.getElementById('timerWrap');
+  if (timerSeconds <= 300) {
+    wrap.className = 'timer-wrap danger';
+  } else if (timerSeconds <= 600) {
+    wrap.className = 'timer-wrap warning';
+  } else {
+    wrap.className = 'timer-wrap';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  RENDER QUESTION
+// ══════════════════════════════════════════════
+function renderQuestion(idx) {
+  currentQ = idx;
+  const q = QUESTIONS[idx];
+
+  document.getElementById('qBadge').textContent = `Soal ${idx+1} / ${QUESTIONS.length}`;
+  document.getElementById('scenarioText').textContent = q.scenario;
+  document.getElementById('questionText').textContent = q.question;
+
+  const list = document.getElementById('optionsList');
+  list.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const li = document.createElement('li');
+    li.className = 'option-item';
+    const inputId = `opt_${idx}_${i}`;
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = `q${idx}`;
+    input.id = inputId;
+    input.value = i;
+    if (answers[idx] === i) input.checked = true;
+    input.addEventListener('change', () => {
+      answers[idx] = i;
+      updateDots();
+      updateAnsweredCount();
+      updateProgress();
+    });
+    const label = document.createElement('label');
+    label.htmlFor = inputId;
+    label.className = 'option-label';
+    label.innerHTML = `<span class="option-letter">${LETTERS[i]}</span><span>${opt}</span>`;
+    li.appendChild(input);
+    li.appendChild(label);
+    list.appendChild(li);
+  });
+
+  const btnPrev   = document.getElementById('btnPrev');
+  const btnNext   = document.getElementById('btnNext');
+  const btnSubmit = document.getElementById('btnSubmit');
+  btnPrev.disabled = idx === 0;
+  if (idx === QUESTIONS.length - 1) {
+    btnNext.style.display = 'none';
+    btnSubmit.style.display = 'flex';
+  } else {
+    btnNext.style.display = 'flex';
+    btnSubmit.style.display = 'none';
+  }
+
+  updateDots();
+  updateAnsweredCount();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ══════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════
+function navigate(dir) {
+  const next = currentQ + dir;
+  if (next >= 0 && next < QUESTIONS.length) renderQuestion(next);
+}
+
+// ══════════════════════════════════════════════
+//  DOTS NAV
+// ══════════════════════════════════════════════
+function buildDots() {
+  const nav = document.getElementById('dotsNav');
+  nav.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot-btn';
+    btn.textContent = i + 1;
+    btn.addEventListener('click', () => renderQuestion(i));
+    nav.appendChild(btn);
+  });
+}
+
+function updateDots() {
+  const btns = document.querySelectorAll('.dot-btn');
+  btns.forEach((btn, i) => {
+    btn.className = 'dot-btn';
+    if (answers[i] !== null) btn.classList.add('answered');
+    if (i === currentQ) btn.classList.add('current');
+  });
+}
+
+// ══════════════════════════════════════════════
+//  PROGRESS & COUNT
+// ══════════════════════════════════════════════
+function updateAnsweredCount() {
+  const count = answers.filter(a => a !== null).length;
+  document.getElementById('qAnsweredCount').textContent = `${count} soal dijawab`;
+}
+
+function updateProgress() {
+  const count = answers.filter(a => a !== null).length;
+  const pct = (count / QUESTIONS.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ══════════════════════════════════════════════
+//  SUBMIT
+// ══════════════════════════════════════════════
+function confirmSubmit() {
+  const unanswered = answers.filter(a => a === null).length;
+  let msg = 'Apakah Anda yakin ingin mengakhiri ujian dan mengirim jawaban?';
+  if (unanswered > 0) {
+    msg = `Masih ada ${unanswered} soal yang belum dijawab. ${msg}`;
+  }
+  if (confirm(msg)) {
+    clearInterval(timerInterval);
+    quizFinished = true;
+    showResults();
+  }
+}
+
+// ══════════════════════════════════════════════
+//  RESULTS
+// ══════════════════════════════════════════════
+function showResults() {
+  quizFinished = true;
+  document.getElementById('page-quiz').style.display = 'none';
+  document.getElementById('page-results').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const answered = answers.filter(a => a !== null).length;
+  const skipped  = answers.filter(a => a === null).length;
+  const timeLeft = `${Math.floor(timerSeconds/60).toString().padStart(2,'0')}:${(timerSeconds%60).toString().padStart(2,'0')}`;
+
+  document.getElementById('scoreNum').textContent    = answered;
+  document.getElementById('statAnswered').textContent = answered;
+  document.getElementById('statSkipped').textContent  = skipped;
+  document.getElementById('statTime').textContent     = timerSeconds > 0 ? timeLeft : '00:00';
+
+  // Ring animation
+  setTimeout(() => {
+    const circ = 2 * Math.PI * 60;
+    const pct  = answered / QUESTIONS.length;
+    const fg   = document.getElementById('ringFg');
+    fg.style.strokeDasharray  = circ;
+    fg.style.strokeDashoffset  = circ * (1 - pct);
+  }, 200);
+}
+
+// ══════════════════════════════════════════════
+//  REVIEW
+// ══════════════════════════════════════════════
+function toggleReview() {
+  const area = document.getElementById('reviewArea');
+  if (area.style.display === 'none') {
+    buildReview();
+    area.style.display = 'block';
+    document.getElementById('btnReview').textContent = '▲ Tutup Rekap Jawaban';
+  } else {
+    area.style.display = 'none';
+    document.getElementById('btnReview').textContent = '📋 Lihat Rekap Jawaban';
+  }
+}
+
+function buildReview() {
+  const list = document.getElementById('reviewList');
+  list.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const li = document.createElement('li');
+    li.className = 'review-item';
+    const ans = answers[i];
+    const ansHtml = ans !== null
+      ? `<span class="r-ans-badge">${LETTERS[ans]}</span><span>${q.options[ans]}</span>`
+      : `<span class="r-ans-badge none">—</span><em style="color:var(--warning)">Tidak dijawab</em>`;
+    li.innerHTML = `
+      <div class="r-num">Soal ${i+1}</div>
+      <div class="r-q">${q.question}</div>
+      <div class="r-ans">${ansHtml}</div>
+    `;
+    list.appendChild(li);
+  });
+}
+</script>
+</body>
+</html>
